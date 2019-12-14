@@ -1,0 +1,29 @@
+{
+  "name": "Tab notes",
+  "version": "1.0",
+  "description": "Learn every time you open a new tab",
+  "manifest_version": 2,
+  "permissions": ["storage"],
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": false
+  },
+  "chrome_url_overrides": {
+    "newtab": "override_page.html"
+  },
+  "page_action": {
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icons/get_started16.png",
+      "32": "icons/get_started32.png",
+      "48": "icons/get_started48.png",
+      "128": "icons/get_started128.png"
+    }
+  },
+  "icons": {
+    "16": "icons/get_started16.png",
+    "32": "icons/get_started32.png",
+    "48": "icons/get_started48.png",
+    "128": "icons/get_started128.png"
+  }
+}
