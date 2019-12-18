@@ -1,18 +1,4 @@
-
-chrome.runtime.onInstalled.addListener(fetchAndStoreNotes);
-
-async function fetchAndStoreNotes() {
-  //TODO: New notes should perhaps be saved under `notes.difficult`
-  chrome.storage.sync.set({ difficult: INITIAL_CARDS }, function () {
-    //TODO: Remove this function
-    chrome.storage.sync.get(null, function (data) {
-      console.log("storage data", data)
-    })
-  });
-  chrome.storage.sync.set({ lastNoteOfTheDayFetchedAt: Date.now() })
-}
-
-const INITIAL_CARDS = [
+export const INITIAL_CARDS = [
   {
     id: "1",
     question: "Some",
