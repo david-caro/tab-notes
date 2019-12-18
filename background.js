@@ -10,4 +10,5 @@ async function fetchAndStoreNotes() {
       console.log("sotrage data", data)
     })
   });
+  chrome.storage.sync.set({ lastCardOfTheDayFetchedAt: Date.now() })
 }
