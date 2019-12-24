@@ -1,4 +1,37 @@
-export const INITIAL_CARDS = [
+chrome.runtime.onInstalled.addListener(fetchAndStoreNotes);
+
+async function fetchAndStoreNotes() {
+  const installedOn = new Date();
+  chrome.storage.sync.set(
+    {
+      difficult: INITIAL_CARDS,
+      mnemonicSequence: mnemonicSequence,
+      lastNoteOfTheDayFetchedAt: installedOn.toDateString()
+    },
+    function() {
+      //TODO: Remove this function
+      chrome.storage.sync.get(null, function(data) {
+        console.log("storage data", data);
+      });
+    }
+  );
+}
+
+const LevelEnum = {
+  EASY: "easy",
+  MEDIUM: "medium",
+  DIFFICULT: "difficult"
+};
+
+const mnemonicSequence = [
+  LevelEnum.DIFFICULT,
+  LevelEnum.DIFFICULT,
+  LevelEnum.MEDIUM,
+  LevelEnum.EASY,
+  LevelEnum.MEDIUM
+];
+
+const INITIAL_CARDS = [
   {
     id: "1",
     question: "Red Flag: Temporal decomposition",
@@ -25,3 +58,4 @@ export const INITIAL_CARDS = [
     answer: "Zues pangea uranus mars athena apollo"
   },
 ];
+

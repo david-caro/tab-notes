@@ -1,7 +1,10 @@
+import {LevelEnum} from './constants.js';
+
 let tabNotes = null;
 document.addEventListener('DOMContentLoaded', function () {
   tabNotes = new TabNotes
   tabNotes.maybeFetchNoteOfTheDay();
+  tabNotes.getANote();
 }, false);
 
 const TabNotes = function () {
@@ -28,12 +31,18 @@ const TabNotes = function () {
       const oneDay = 24 * 60 * 60 * 1000;
       const now = new Date();
       const lastNoteFetchedAt = new Date(e.lastNoteOfTheDayFetchedAt);
-      console.log(new Date(lastNoteFetchedAt));
       if (now.getTime() - lastNoteFetchedAt.getTime() >= oneDay) {
         fetchWordOfTheDay()
       } else {
         return;
       }
+    })
+  }
+
+  this.getANote = function() {
+    storage.get('mnemonicSequence', function(data) {
+      const levelToShow = data.mnemonicSequence[0];
+      console.log(levelToShow);
     })
   }
 }
