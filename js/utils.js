@@ -1,4 +1,5 @@
 import {LevelEnum} from './constants.js';
+import {View} from './view.js';
 
 let tabNotes = null;
 document.addEventListener('DOMContentLoaded', function () {
@@ -9,6 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 const TabNotes = function () {
   const storage = chrome.storage.sync;
+  const view = new View();
 
   async function fetchWordOfTheDay() {
     const res = await fetch('https://cors-anywhere.herokuapp.com/http://urban-word-of-the-day.herokuapp.com')
@@ -42,7 +44,9 @@ const TabNotes = function () {
   this.getANote = function() {
     storage.get('mnemonicSequence', function(data) {
       const levelToShow = data.mnemonicSequence[0];
-      console.log(levelToShow);
+      storage.get(levelToShow, function(data) {
+        view.showCard(data[levelToShow][0].question);
+      })
     })
   }
 }
