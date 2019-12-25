@@ -9,9 +9,11 @@ async function fetchAndStoreNotes() {
       console.log("storage data", data)
     })
   });
-  chrome.storage.sync.set({ lastNoteOfTheDayFetchedAt: Date.now() })
+  const installedOn = new Date();
+  console.log(installedOn);
+  chrome.storage.sync.set({ lastNoteOfTheDayFetchedAt: installedOn.toDateString() })
 }
-
+//
 const INITIAL_CARDS = [
   {
     id: "1",
