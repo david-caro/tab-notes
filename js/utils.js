@@ -1,14 +1,20 @@
-import { LevelEnum } from './constants.js';
-import { View } from './view.js';
+import {LevelEnum} from './constants.js';
+import {View} from './view.js';
 
 let tabNotes = null;
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function() {
+
   tabNotes = new TabNotes
   tabNotes.maybeFetchNoteOfTheDay();
   tabNotes.getANote();
+
+  document.getElementById('show').onclick = tabNotes.showAnswer;
+  document.querySelectorAll('#levels-container a').forEach(level => {
+    level.onclick = tabNotes.onSelectLevel.bind(this, event)
+  });
 }, false);
 
-const TabNotes = function () {
+const TabNotes = function() {
   const storage = chrome.storage.sync;
   const view = new View();
 
@@ -46,9 +52,23 @@ const TabNotes = function () {
     storage.get('mnemonicSequence', function (data) {
       const levelToShow = data.mnemonicSequence[0];
       storage.get(levelToShow, function (data) {
-        view.showCard(data[levelToShow][0].question);
+        view.showNoteQuestion(data[levelToShow][0].question);
       })
     })
+  }
+
+  this.showAnswer = function() {
+    storage.get('mnemonicSequence', function(data) {
+      const levelToShow = data.mnemonicSequence[0];
+      storage.get(levelToShow, function(data) {
+        view.showNoteAnswer(data[levelToShow][0].answer);
+      })
+    })
+  }
+
+  this.onSelectLevel = function(_, event) {
+    const selectedLevel = event.target.id;
+    storage.set
   }
 }
 
