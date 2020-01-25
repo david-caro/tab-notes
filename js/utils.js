@@ -8,6 +8,14 @@ document.addEventListener('DOMContentLoaded', function () {
   tabNotes.getANote();
 }, false);
 
+
+const showButton = document.getElementById("show");
+showButton.addEventListener('click', function () {
+  const answer = document.getElementById("answer");
+  answer.hidden = false
+  showButton.hidden = true
+});
+
 const TabNotes = function () {
   const storage = chrome.storage.sync;
   const view = new View();
@@ -45,9 +53,9 @@ const TabNotes = function () {
     storage.get('mnemonicSequence', function(data) {
       const levelToShow = data.mnemonicSequence[0];
       storage.get(levelToShow, function(data) {
-        view.showCard(data[levelToShow][0].question);
+        const note = data[levelToShow][0]
+        view.showCard(note.question, note.answer);
       })
     })
   }
 }
-
