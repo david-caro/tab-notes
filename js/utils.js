@@ -1,5 +1,5 @@
-import {LevelEnum} from './constants.js';
-import {View} from './view.js';
+import { LevelEnum } from './constants.js';
+import { View } from './view.js';
 
 let tabNotes = null;
 document.addEventListener('DOMContentLoaded', function () {
@@ -29,6 +29,7 @@ const TabNotes = function () {
   }
 
   this.maybeFetchNoteOfTheDay = function () {
+    console.log("maybeFeathc")
     storage.get('lastNoteOfTheDayFetchedAt', function (e) {
       const oneDay = 24 * 60 * 60 * 1000;
       const now = new Date();
@@ -41,10 +42,10 @@ const TabNotes = function () {
     })
   }
 
-  this.getANote = function() {
-    storage.get('mnemonicSequence', function(data) {
+  this.getANote = function () {
+    storage.get('mnemonicSequence', function (data) {
       const levelToShow = data.mnemonicSequence[0];
-      storage.get(levelToShow, function(data) {
+      storage.get(levelToShow, function (data) {
         view.showCard(data[levelToShow][0].question);
       })
     })
