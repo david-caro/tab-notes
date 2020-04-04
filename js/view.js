@@ -20,4 +20,14 @@ export const View = function() {
     document.getElementById("show").classList.add("hide");
     addElement('note', 'p', 'answer', answer);
   };
+
+  this.hideNoteAnswer = function(answer) {
+    console.log('hidNoteAnswer');
+    document.getElementById("show").classList.remove("hide");
+    if (document.getElementById('answer') !== null) {
+      document.getElementById('note').removeChild(
+        document.getElementById('answer')
+      );
+    };
+  };
 };
